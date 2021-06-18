@@ -28,8 +28,8 @@ RUN microdnf update -y --nodocs && \
 
 RUN groupadd --gid 1001 nodered \
   && useradd --gid nodered --uid 1001 --shell /bin/bash --create-home nodered \
-  && chgrp -R 0 /some/directory \
-  &&  chmod -R g=u /some/directory
+  && chgrp -R 0 /home/nodered \
+  &&  chmod -R g=u /home/nodered
 
 USER 1001
 
