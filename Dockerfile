@@ -33,13 +33,13 @@ RUN groupadd --gid 1001 nodered \
 
 USER 1001
 
-COPY --from=build  /home/nodered
+COPY --from=build /opt/app-root/data /home/nodered
 
 WORKDIR /home/nodered
 
 ENV PORT 1880
 ENV NODE_ENV=production
-ENV NODE_PATH=/data/node_modules
+#ENV NODE_PATH=/data/node_modules
 #ENV TWCAPIKEY=
 #ENV MAPBOXTOKEN=
 EXPOSE 1880
