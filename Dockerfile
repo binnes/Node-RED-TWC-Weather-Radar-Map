@@ -27,15 +27,15 @@ RUN microdnf update -y --nodocs && \
     microdnf clean all
 
 RUN groupadd --gid 1001 nodered \
-  && useradd --gid nodered --uid 1001 --shell /bin/bash --create-home nodered
-
-RUN mkdir -p /opt/app-root/data && chown 1001 /opt/app-root/data
+  && useradd --gid nodered --uid 1001 --shell /bin/bash --create-home nodered \
+  && chgrp -R 0 /some/directory \
+  &&  chmod -R g=u /some/directory
 
 USER 1001
 
-COPY --from=build /opt/app-root/data /opt/app-root/data/
+COPY --from=build  /home/nodered
 
-WORKDIR /opt/app-root/data
+WORKDIR /home/nodered
 
 ENV PORT 1880
 ENV NODE_ENV=production
@@ -44,4 +44,4 @@ ENV NODE_PATH=/data/node_modules
 #ENV MAPBOXTOKEN=
 EXPOSE 1880
 
-CMD ["node", "/opt/app-root/data/server.js", "/opt/app-root/data/flows.json"]
+CMD ["node", "/home/nodered/server.js", "/home/nodered/flows.json"]
